@@ -13,6 +13,29 @@
  * the output should be ["file", "file(1)", "image", "file(1)(1)", "file(2)"]
  *
  */
+// function renameFiles(names) {
+//   for (let i = 0; i < names.length; i++) {
+//     for (let j = 0; j < i; j++) {
+//       if(names[i] === names[j]) {
+//         names[i] += `(${1})`;
+//       }
+//     }
+//   }
+
+//   return names;
+
+//   names.map(name => {
+//     const reg = name.match(/1+$/);
+//     if (reg) {
+//       let nums = reg[0].split('').map(num => parseInt(num)).reduce((a, b) => a + b, 0);
+//       return name.replace(reg[0], `(${nums})`)
+//     }
+//     return name;
+//   })
+// }
+
+// console.log(renameFiles(["file", "file", "image", "file(1)", "file"]));
+
 function renameFiles(/* names */) {
   throw new Error('Not implemented');
 }
