@@ -1,11 +1,11 @@
 /**
- * There's a list of file, since two files cannot have equal names,
+ * There's a list of file, since two files cannot have equal arr,
  * the one which comes later will have a suffix (k),
  * where k is the smallest integer such that the found name is not used yet.
  *
- * Return an array of names that will be given to the files.
+ * Return an array of arr that will be given to the files.
  *
- * @param {Array} names
+ * @param {Array} arr
  * @return {Array}
  *
  * @example
@@ -13,31 +13,34 @@
  * the output should be ["file", "file(1)", "image", "file(1)(1)", "file(2)"]
  *
  */
-// function renameFiles(names) {
-//   for (let i = 0; i < names.length; i++) {
-//     for (let j = 0; j < i; j++) {
-//       if(names[i] === names[j]) {
-//         names[i] += `(${1})`;
-//       }
-//     }
-//   }
+function renameFiles(names) {
+  const arr = names;
+  const uniqNames = Array.from(new Set(arr));
+  const changedNames = [];
+  for (let i = 0; i < arr.length; i++) {
+    const piece = arr.slice(0, i);
+    if (uniqNames.includes(arr[i]) && changedNames.includes(arr[i])) {
+      arr[i] += `(${1})`;
+      changedNames.push(arr[i]);
+    }
 
-//   return names;
+    while (piece.includes(arr[i])) {
+      if (changedNames.includes(arr[i])) {
+        const fName = arr[piece.indexOf(arr[i])];
+        const reg = fName.match(/\(\d+\)$/);
+        const number = parseInt(reg[0][1], 0);
+        const nameArr = arr[i].split('');
+        nameArr[reg.index + 1] = (number + 1);
+        arr[i] = nameArr.join('');
+        changedNames.push(arr[i]);
+      } else {
+        arr[i] += `(${1})`;
+        changedNames.push(arr[i]);
+      }
+    }
+  }
 
-//   names.map(name => {
-//     const reg = name.match(/1+$/);
-//     if (reg) {
-//       let nums = reg[0].split('').map(num => parseInt(num)).reduce((a, b) => a + b, 0);
-//       return name.replace(reg[0], `(${nums})`)
-//     }
-//     return name;
-//   })
-// }
-
-// console.log(renameFiles(["file", "file", "image", "file(1)", "file"]));
-
-function renameFiles(/* names */) {
-  throw new Error('Not implemented');
+  return arr;
 }
 
 module.exports = renameFiles;
